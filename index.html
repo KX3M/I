@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Wallah</title>
+    <style>
+        body { 
+            font-family: 'Arial', sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background: url('https://cdn.pixabay.com/photo/2016/11/29/05/34/road-1869269_960_720.jpg') no-repeat center center fixed; 
+            background-size: cover;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        /* Snowfall Effect */
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: #fff;
+            font-size: 2em;
+            user-select: none;
+            z-index: 1000;
+            pointer-events: none;
+            animation: snowfall 10s linear infinite;
+        }
+
+        @keyframes snowfall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        /* Styling for the page */
+        .container {
+            width: 80%; 
+            margin: 50px auto; 
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        h1 {
+            font-size: 36px;
+            color: #ffcc00;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
+        }
+        input[type="text"] {
+            padding: 12px;
+            width: 70%;
+            border: 2px solid #ffcc00;
+            background-color: #333;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus {
+            border-color: #ff9900;
+            outline: none;
+        }
+        button {
+            padding: 15px;
+            width: 75%;
+            font-size: 18px;
+            background-color: #ff9900;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #ff6600;
+        }
+        .anime-list { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center;
+            margin-top: 20px; 
+        }
+        .anime-card { 
+            width: 240px; 
+            margin: 15px; 
+            background-color: #333; 
+            border-radius: 10px; 
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .anime-card:hover { 
+            transform: scale(1.05); 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+        }
+        .anime-card img {
+            width: 100%; 
+            height: 180px; 
+            object-fit: cover;
+        }
+        .anime-card h3 {
+            font-size: 18px; 
+            padding: 10px; 
+            background-color: #ff9900; 
+            color: #333; 
+            margin: 0;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+        }
+        .download-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .download-btn:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            padding: 20px;
+            background-color: #111;
+            color: #ffcc00;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Anime Wallah</h1>
+    <input type="text" id="anime-name" placeholder="Search for your favorite anime..." />
+    <button onclick="searchAnime()">Search Anime</button>
+
+    <div class="anime-list" id="anime-list"></div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Anime Wallah. All rights reserved. Made with 💖 for anime lovers.</p>
+</footer>
+
+<script>
+    // Create snowflakes on page load
+    for (let i = 0; i < 50; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.classList.add('snowflake');
+        snowflake.innerText = '❄';
+        snowflake.style.left = `${Math.random() * 100}vw`;
+        snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`; // Random duration
+        snowflake.style.animationDelay = `${Math.random() * 5}s`; // Random delay
+        document.body.appendChild(snowflake);
+    }
+
+    // Search Anime function
+    function searchAnime() {
+        var animeName = document.getElementById("anime-name").value;
+        var quality = "720p"; // Default quality
+
+        fetch(`https://your-koyeb-url/anime/${animeName}?quality=${quality}`)
+            .then(response => response.json())
+            .then(data => displayAnime(data));
+    }
+
+    // Display Anime Details & Download Links
+    function displayAnime(data) {
+        var animeList = document.getElementById("anime-list");
+        animeList.innerHTML = '';  // Clear previous results
+        
+        data.download_links.forEach(link => {
+            var animeCard = document.createElement("div");
+            animeCard.classList.add("anime-card");
+
+            var animeTitle = document.createElement("h3");
+            animeTitle.innerText = data.anime_name;
+            animeCard.appendChild(animeTitle);
+            
+            // Display Screenshots (You can use real data here)
+            data.screenshots.forEach(imgSrc => {
+                var img = document.createElement("img");
+                img.src = imgSrc;
+                animeCard.appendChild(img);
+            });
+            
+            // Display Download Links
+            var btn = document.createElement("button");
+            btn.classList.add("download-btn");
+            btn.innerText = "Download";
+            btn.onclick = () => window.location.href = link;
+            animeCard.appendChild(btn);
+            
+            animeList.appendChild(animeCard);
+        });
+    }
+</script>
+
+</body>
+</html>
