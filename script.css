@@ -3,7 +3,7 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #1b1b1b;
+    background-color: #111;
     color: #fff;
     overflow-x: hidden;
     background: url('https://wallpaperaccess.com/full/30842.jpg') no-repeat center center fixed;
@@ -20,20 +20,20 @@ body {
 
 /* Header Styling */
 header {
-    background: rgba(0, 0, 0, 0.7);
-    padding: 20px 0;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 40px 0;
     text-align: center;
     color: #ffcc00;
     font-family: 'Courier New', Courier, monospace;
-    border-bottom: 3px solid #ffcc00;
+    border-bottom: 5px solid #ffcc00;
 }
 
 header h1 {
-    font-size: 50px;
+    font-size: 60px;
     text-transform: uppercase;
     margin: 0;
     letter-spacing: 2px;
-    text-shadow: 2px 2px 4px #000;
+    text-shadow: 3px 3px 6px #000;
 }
 
 /* Search Bar and Button Styling */
@@ -43,12 +43,12 @@ header h1 {
 }
 
 .search-container input[type="text"] {
-    padding: 15px;
+    padding: 18px;
     width: 60%;
     border: 2px solid #ff9900;
     background-color: #333;
     color: #fff;
-    border-radius: 5px;
+    border-radius: 8px;
     font-size: 18px;
     margin-bottom: 15px;
     transition: 0.3s ease;
@@ -61,20 +61,20 @@ header h1 {
 }
 
 .search-container button {
-    padding: 15px;
+    padding: 18px;
     width: 70%;
     font-size: 18px;
     background-color: #ff9900;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .search-container button:hover {
     background-color: #ff6600;
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 /* Anime Details Styling */
@@ -86,54 +86,54 @@ header h1 {
 }
 
 .anime-card {
-    background: rgba(0, 0, 0, 0.6);
-    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 12px;
     padding: 20px;
     margin: 20px;
     width: 280px;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .anime-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-12px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
 }
 
 .anime-card img {
-    width: 250px;
-    height: 375px;
+    width: 100%;
+    height: 400px;
     object-fit: cover;
     border-radius: 8px;
 }
 
 .anime-card h3 {
-    font-size: 22px;
+    font-size: 24px;
     color: #ffcc00;
-    margin: 10px 0;
+    margin: 15px 0;
     font-family: 'Courier New', Courier, monospace;
-    letter-spacing: 1px;
 }
 
 .anime-card p {
     font-size: 16px;
     color: #ccc;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
-.anime-card button {
-    padding: 12px;
+.anime-card .view-more {
+    padding: 14px;
     font-size: 16px;
     background-color: #ff6600;
     border: none;
     color: white;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    text-decoration: none;
 }
 
-.anime-card button:hover {
+.anime-card .view-more:hover {
     background-color: #ff9900;
     transform: scale(1.05);
 }
@@ -160,9 +160,9 @@ footer {
     padding: 20px;
     color: #ffcc00;
     font-size: 14px;
-    position: absolute;
-    width: 100%;
+    position: relative;
     bottom: 0;
+    width: 100%;
 }
 
 /* Loading Spinner Styling */
