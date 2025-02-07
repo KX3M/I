@@ -26,9 +26,7 @@ function displayAnimeDetails(animes) {
 
     animes.forEach(anime => {
         const images = anime.images.jpg.large_image_url;
-        const imageList = [];
-        imageList.push(images);
-        // Adding a few extra images for anime cards (you can customize these URLs with your API or logic)
+        const imageList = [images];
 
         animeDetails.innerHTML += `
             <div class="anime-card">
@@ -42,7 +40,7 @@ function displayAnimeDetails(animes) {
                     ${imageList.map(image => `<img src="${image}" alt="Image">`).join('')}
                 </div>
 
-                <button onclick="window.open('${anime.url}', '_blank')">View Details</button>
+                <a href="/anime/${anime.mal_id}" class="view-more">View More</a>
             </div>
         `;
     });
