@@ -3,29 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Anime Wallah</title>
+    <title>Anime Wallah - Download Anime</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="script.css">
 </head>
 <body>
     <header>
-        <div class="logo-container">
-            <h1>Anime Wallah</h1>
-            <p>Explore, Watch, and Download Anime</p>
-        </div>
+        <h1>Anime Wallah</h1>
+        <input type="text" id="anime-name" placeholder="Search Anime...">
+        <button onclick="searchAnime()">Search</button>
     </header>
 
-    <div class="search-container">
-        <input type="text" id="anime-name" placeholder="Search for Anime...">
-        <button onclick="searchAnime()">Search</button>
-    </div>
-
-    <div id="loading-spinner" class="loading-spinner">
-        <div class="loader"></div>
-    </div>
-
-    <div id="anime-details" class="anime-details"></div>
+    <div id="anime-list"></div>
 
     <footer>
         <p>&copy; 2025 Anime Wallah | All Rights Reserved</p>
