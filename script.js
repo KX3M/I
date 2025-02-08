@@ -5,43 +5,41 @@ async function searchAnime() {
         return;
     }
 
-    // Show loading spinner while fetching data
-    document.getElementById("loading-spinner").style.display = 'block';
-
     const response = await fetch(`https://api.jikan.moe/v4/anime?q=${animeName}&limit=5`);
     const data = await response.json();
 
-    document.getElementById("loading-spinner").style.display = 'none';
-
     if (data.data.length > 0) {
-        displayAnimeDetails(data.data);
+        displayAnimeResults(data.data);
     } else {
         alert("Anime not found!");
     }
 }
 
-function displayAnimeDetails(animes) {
-    const animeDetails = document.getElementById("anime-details");
-    animeDetails.innerHTML = '';
+function displayAnimeResults(animeList) {
+    const animeListContainer = document.getElementById("anime-list");
+    animeListContainer.innerHTML = "";
 
-    animes.forEach(anime => {
-        const images = anime.images.jpg.large_image_url;
-        const imageList = [images];
+    animeList.forEach(anime => {
+        const animeDiv = document.createElement("div");
+        animeDiv.classList.add("anime-item");
 
-        animeDetails.innerHTML += `
-            <div class="anime-card">
-                <img src="${images}" alt="${anime.title}">
-                <h3>${anime.title}</h3>
-                <p><strong>Episodes:</strong> ${anime.episodes ? anime.episodes : "N/A"}</p>
-                <p><strong>Rating:</strong> ${anime.rating ? anime.rating : "N/A"}</p>
-                <p><strong>Synopsis:</strong> ${anime.synopsis ? anime.synopsis : "No synopsis available."}</p>
-
-                <div class="image-slider">
-                    ${imageList.map(image => `<img src="${image}" alt="Image">`).join('')}
-                </div>
-
-                <a href="/anime/${anime.mal_id}" class="view-more">View More</a>
-            </div>
+        animeDiv.innerHTML = `
+            <img src="${anime.images.jpg.large_image_url}" alt="${anime.title}">
+            <h3>${anime.title}</h3>
+            <button onclick="redirectToZoro('${anime.title}')">Download</button>
         `;
+
+        animeListContainer.appendChild(animeDiv);
     });
+}
+
+function redirectToZoro(animeTitle) {
+    // Format anime title to match Zoro.to URL format
+    const formattedTitle = animeTitle.replace(/\s+/g, "-").toLowerCase();
+    
+    // Construct the Zoro.to download page URL
+    const zoroDownloadURL = `https://zoro.to/${formattedTitle}-download`;
+
+    // Open Zoro.to in a new tab
+    window.open(zoroDownloadURL, "_blank");
 }
