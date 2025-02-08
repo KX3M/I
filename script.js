@@ -1,3 +1,5 @@
+const SHORTENER_API = "https://inshorturl.com/api?api=2e7e4739d495b5fce0531b9dc8342c40762a3fa9&url=";
+
 async function searchAnime() {
     const animeName = document.getElementById("anime-name").value;
     if (animeName === '') {
@@ -26,20 +28,29 @@ function displayAnimeResults(animeList) {
         animeDiv.innerHTML = `
             <img src="${anime.images.jpg.large_image_url}" alt="${anime.title}">
             <h3>${anime.title}</h3>
-            <button onclick="redirectToZoro('${anime.title}')">Download</button>
+            <a href="anime-detail.html?id=${anime.mal_id}">View More</a>
+            <button onclick="redirectToDownload('${anime.title}')">Download</button>
         `;
 
         animeListContainer.appendChild(animeDiv);
     });
 }
 
-function redirectToZoro(animeTitle) {
-    // Format anime title to match Zoro.to URL format
+async function generateShortLink(originalLink) {
+    try {
+        const response = await fetch(SHORTENER_API + encodeURIComponent(originalLink));
+        const data = await response.json();
+        return data.shortenedUrl;  
+    } catch (error) {
+        console.error("Shortener Error:", error);
+        return originalLink;
+    }
+}
+
+async function redirectToDownload(animeTitle) {
     const formattedTitle = animeTitle.replace(/\s+/g, "-").toLowerCase();
-    
-    // Construct the Zoro.to download page URL
     const zoroDownloadURL = `https://zoro.to/${formattedTitle}-download`;
 
-    // Open Zoro.to in a new tab
-    window.open(zoroDownloadURL, "_blank");
+    const shortLink = await generateShortLink(zoroDownloadURL);
+    window.open(shortLink, "_blank");
 }
